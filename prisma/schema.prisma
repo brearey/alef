@@ -15,7 +15,7 @@ datasource db {
 
 model User {
   id       Int    @id @default(autoincrement())
-  fullname String // ФИО пользователя
+  fullName String // ФИО пользователя
   age      Int // возраст пользователя
   email    String @unique
 }
