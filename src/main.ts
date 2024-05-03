@@ -4,12 +4,12 @@ import { DocumentBuilder, SwaggerModule } from "@nestjs/swagger";
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
-  const PORT = process.env.PORT;
+  const PORT = 3000;
 
   // Инциализация документации API на основе Swagger
   const swaggerConfig = new DocumentBuilder().setTitle('Alef app').build();
   const swaggerDoc = SwaggerModule.createDocument(app, swaggerConfig);
-  SwaggerModule.setup('api', app, swaggerDoc);
+  SwaggerModule.setup('swagger', app, swaggerDoc);
 
   await app.listen(PORT, () => console.log(`Приложение запущено на порту ${PORT}`))
 }

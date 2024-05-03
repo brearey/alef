@@ -4,17 +4,15 @@ import {DatabaseService} from "../database/database.service";
 
 @Injectable()
 export class UserService {
-    constructor(private readonly databaseService: DatabaseService) {
-    }
+    constructor(private readonly databaseService: DatabaseService) {}
 
-    async createUser(userDto: CreateUserDto): Promise<object> {
-        const user = await this.databaseService.user.create({
+    async createUser(userDto: CreateUserDto) {
+        return this.databaseService.user.create({
             data: {
                 fullName: userDto.fullName,
                 age: userDto.age,
                 email: userDto.email,
             }
-        })
-        return user;
+        });
     }
 }
