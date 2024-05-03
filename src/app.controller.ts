@@ -9,13 +9,15 @@ class HelloWorldDto {
 
 @Controller()
 export class AppController {
-  constructor(private readonly appService: AppService) {}
+  constructor(
+      private readonly appService: AppService
+  ) {}
 
   @Get()
   @ApiOkResponse({
     type: HelloWorldDto
   })
-  getHello(): HelloWorldDto {
+  async getHello(): Promise<HelloWorldDto> {
     return { message: this.appService.getHello() };
   }
 }
