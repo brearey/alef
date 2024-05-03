@@ -5,10 +5,10 @@ services:
     image: postgres:16.2-alpine3.18
     restart: always
     environment:
-      - POSTGRES_USER=postgres
-      - POSTGRES_PASSWORD=alef2024
+      - POSTGRES_USER=${POSTGRES_USER}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
     ports:
-      - '5433:5433'
+      - '5433:5432'
     volumes:
       - db:/var/lib/postgresql/data
 volumes:
