@@ -1,7 +1,9 @@
-import { Body, Controller, Get, Post } from "@nestjs/common";
+import { Body, Controller, Get, Param, Post } from "@nestjs/common";
 import { UserService } from "./user.service";
-import { CreateUserDto } from "./dto/create.user.dto";
-import { ApiOkResponse, ApiResponse } from "@nestjs/swagger";
+import { CreateUserDto } from "./dto/create-user.dto";
+import { ApiResponse } from "@nestjs/swagger";
+import { FindOneParams } from "./dto/validator.dto";
+
 
 @Controller("user")
 export class UserController {
@@ -15,7 +17,13 @@ export class UserController {
 
   @ApiResponse({ status: 200, type: Array<CreateUserDto> })
   @Get("all")
-  async getAllUsers() {
-    return this.userService.getAllUsers();
+  async findAll() {
+    return this.userService.findAll();
+  }
+
+  @ApiResponse({ status: 200, type: CreateUserDto })
+  @Get(':id')
+  findOne(@Param() params: FindOneParams) {
+    return this.userService.findOne(+params.id);
   }
 }

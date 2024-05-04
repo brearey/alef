@@ -1,5 +1,5 @@
 import { Injectable } from "@nestjs/common";
-import { CreateUserDto } from "./dto/create.user.dto";
+import { CreateUserDto } from "./dto/create-user.dto";
 import { DatabaseService } from "../database/database.service";
 
 @Injectable()
@@ -24,7 +24,18 @@ export class UserService {
     });
   }
 
-  async getAllUsers() {
+  async findAll() {
     return this.databaseService.user.findMany();
+  }
+
+  async findOne(id: number) {
+    return this.databaseService.user.findUnique({
+      where: {
+        id: id
+      },
+      include: {
+        children: true
+      }
+    })
   }
 }

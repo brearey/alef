@@ -1,5 +1,5 @@
 import { ApiProperty } from "@nestjs/swagger";
-import { CreateChildDto } from "./create.child.dto";
+import { CreateChildDto } from "./create-child.dto";
 import {
   ArrayMaxSize,
   IsArray,
