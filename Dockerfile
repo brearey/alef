@@ -8,6 +8,6 @@ RUN npm install
 
 COPY . .
 
-COPY ./dist ./dist
+RUN npx prisma generate
 
 CMD ["npm", "run", "start:dev"]
