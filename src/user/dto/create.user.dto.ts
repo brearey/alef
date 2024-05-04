@@ -1,4 +1,5 @@
 import {ApiProperty} from "@nestjs/swagger";
+import { CreateChildDto } from "./create.child.dto";
 
 export class CreateUserDto {
     @ApiProperty({example: 'Иванов Иван Иванович', description: 'ФИО'})
@@ -9,4 +10,7 @@ export class CreateUserDto {
 
     @ApiProperty({example: 'user@mail.ru', description: 'Почта'})
     readonly email: string;
+
+    @ApiProperty({example: 'array of objects', description: 'Массив объектов типа Child'})
+    readonly children: Array<CreateChildDto>
 }

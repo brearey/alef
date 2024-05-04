@@ -1,5 +1,5 @@
-import { Injectable } from '@nestjs/common';
-import {CreateUserDto} from "./create.user.dto";
+import { Injectable } from "@nestjs/common";
+import {CreateUserDto} from "./dto/create.user.dto";
 import {DatabaseService} from "../database/database.service";
 
 @Injectable()
@@ -12,6 +12,14 @@ export class UserService {
                 fullName: userDto.fullName,
                 age: userDto.age,
                 email: userDto.email,
+                children: {
+                    createMany: {
+                        data: userDto.children
+                    }
+                }
+            },
+            include: {
+                children: true
             }
         });
     }

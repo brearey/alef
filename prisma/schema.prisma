@@ -14,8 +14,17 @@ datasource db {
 }
 
 model User {
-  id       Int    @id @default(autoincrement())
+  id       Int     @id @default(autoincrement())
   fullName String // ФИО пользователя
   age      Int // возраст пользователя
-  email    String @unique
+  email    String  @unique
+  children Child[]
+}
+
+model Child {
+  id        Int    @id @default(autoincrement())
+  fullName  String // ФИО ребенка
+  age       Int // возраст ребенка
+  parent_id Int // ID родителя из таблицы User
+  parent    User   @relation(fields: [parent_id], references: [id]) // Связь с таблицой User
 }
