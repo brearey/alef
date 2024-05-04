@@ -1,26 +1,44 @@
 import { Injectable } from "@nestjs/common";
-import { CreateChildDto } from "./dto/create-child.dto";
+import { DatabaseService } from "../database/database.service";
 import { UpdateChildDto } from "./dto/update-child.dto";
 
 @Injectable()
 export class ChildService {
-  create(createChildDto: CreateChildDto) {
-    return "This action adds a new child";
-  }
 
-  findAll() {
-    return `This action returns all child`;
+  constructor(private readonly databaseService: DatabaseService) {}
+
+  async findAll() {
+    return this.databaseService.child.findMany();
   }
 
   findOne(id: number) {
-    return `This action returns a #${id} child`;
+    return this.databaseService.child.findUnique({
+      where: {
+        id: id,
+      },
+      include: {
+        parent: true
+      }
+    });
   }
 
   update(id: number, updateChildDto: UpdateChildDto) {
-    return `This action updates a #${id} child`;
+    return this.databaseService.child.update({
+      data: {
+        fullName: updateChildDto.fullName,
+        age: updateChildDto.age,
+      },
+      where: {
+        id: id,
+      },
+    });
   }
 
   remove(id: number) {
-    return `This action removes a #${id} child`;
+    return this.databaseService.child.delete({
+      where: {
+        id: id,
+      },
+    });
   }
 }

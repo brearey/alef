@@ -76,4 +76,12 @@ export class UserService {
       },
     });
   }
+
+  remove(id: number) {
+    return this.databaseService.user.delete({
+      where: {
+        id: id,
+      },
+    });
+  }
 }

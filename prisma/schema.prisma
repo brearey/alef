@@ -26,5 +26,5 @@ model Child {
   fullName  String // ФИО ребенка
   age       Int // возраст ребенка
   parent_id Int // ID родителя из таблицы User
-  parent    User   @relation(fields: [parent_id], references: [id]) // Связь с таблицой User
+  parent    User   @relation(fields: [parent_id], references: [id], onDelete: Cascade) // Связь с таблицой User
 }

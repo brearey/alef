@@ -1,4 +1,4 @@
-import { Body, Controller, Get, HttpException, HttpStatus, Param, Patch, Post } from "@nestjs/common";
+import { Body, Controller, Delete, Get, HttpException, HttpStatus, Param, Patch, Post } from "@nestjs/common";
 import { UserService } from "./user.service";
 import { CreateUserDto } from "./dto/create-user.dto";
 import { ApiResponse } from "@nestjs/swagger";
@@ -12,7 +12,7 @@ export class UserController {
 
   @ApiResponse({ status: 200, type: CreateUserDto })
   @Post("create")
-  async create(@Body() userDto: CreateUserDto) {
+  create(@Body() userDto: CreateUserDto) {
     return this.userService.createUser(userDto);
   }
 
@@ -32,7 +32,7 @@ export class UserController {
 
   @ApiResponse({ status: 200, type: Array<CreateUserDto> })
   @Get("all")
-  async findAll() {
+  findAll() {
     return this.userService.findAll();
   }
 
@@ -40,5 +40,11 @@ export class UserController {
   @Get(":id")
   findOne(@Param() params: FindOneParams) {
     return this.userService.findOne(+params.id);
+  }
+
+  @ApiResponse({status: 200})
+  @Delete(":id")
+  remove(@Param() params: FindOneParams) {
+    return this.userService.remove(+params.id);
   }
 }
