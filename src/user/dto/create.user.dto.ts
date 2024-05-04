@@ -1,6 +1,7 @@
 import { ApiProperty } from "@nestjs/swagger";
 import { CreateChildDto } from "./create.child.dto";
 import { ArrayMaxSize, IsArray, IsEmail, IsInt, IsNotEmpty, Length, Max, Min, ValidateNested } from "class-validator";
+import { Type } from "class-transformer";
 
 export class CreateUserDto {
 
@@ -22,8 +23,8 @@ export class CreateUserDto {
     readonly email: string;
 
     @ApiProperty({example: '[]', description: 'Массив объектов типа Child'})
-    @IsArray()
     @ArrayMaxSize(5, {message: 'Нельзя добавить больше 5 детей'})
     @ValidateNested()
+    @Type(() => CreateChildDto)
     readonly children: CreateChildDto[]
 }
