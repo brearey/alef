@@ -1,21 +1,19 @@
-import { Controller, Get } from '@nestjs/common';
-import { AppService } from './app.service';
-import {ApiOkResponse, ApiProperty} from "@nestjs/swagger";
+import { Controller, Get } from "@nestjs/common";
+import { AppService } from "./app.service";
+import { ApiOkResponse, ApiProperty } from "@nestjs/swagger";
 
 class HelloWorldDto {
   @ApiProperty()
-  message: string
+  message: string;
 }
 
 @Controller()
 export class AppController {
-  constructor(
-      private readonly appService: AppService
-  ) {}
+  constructor(private readonly appService: AppService) {}
 
   @Get()
   @ApiOkResponse({
-    type: HelloWorldDto
+    type: HelloWorldDto,
   })
   async getHello(): Promise<HelloWorldDto> {
     return { message: this.appService.getHello() };
