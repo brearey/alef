@@ -6,6 +6,7 @@ import { Response } from "express";
 @Catch(Prisma.PrismaClientKnownRequestError)
 export class PrismaClientExceptionFilter extends BaseExceptionFilter {
   catch(exception: Prisma.PrismaClientKnownRequestError, host: ArgumentsHost) {
+    console.error(exception.code);
     console.error(exception.message);
     const ctx = host.switchToHttp();
     const response = ctx.getResponse<Response>();
@@ -14,6 +15,30 @@ export class PrismaClientExceptionFilter extends BaseExceptionFilter {
     switch (exception.code) {
       case "P2002": {
         const status = HttpStatus.CONFLICT;
+        response.status(status).json({
+          statusCode: status,
+          message: message,
+        });
+        break;
+      }
+      case "P2003": {
+        const status = HttpStatus.NOT_FOUND;
+        response.status(status).json({
+          statusCode: status,
+          message: message,
+        });
+        break;
+      }
+      case "P2015": {
+        const status = HttpStatus.NOT_FOUND;
+        response.status(status).json({
+          statusCode: status,
+          message: message,
+        });
+        break;
+      }
+      case "P2025": {
+        const status = HttpStatus.NOT_FOUND;
         response.status(status).json({
           statusCode: status,
           message: message,
