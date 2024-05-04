@@ -1,4 +1,4 @@
-import { Body, Controller, Post } from "@nestjs/common";
+import { Body, Controller, Get, Post } from "@nestjs/common";
 import { UserService } from "./user.service";
 import { CreateUserDto } from "./dto/create.user.dto";
 import {
@@ -8,12 +8,17 @@ import {
 
 @Controller('user')
 export class UserController {
-    constructor(private readonly userServcie: UserService) {}
+    constructor(private readonly userService: UserService) {}
 
     @ApiResponse({status: 200, type: CreateUserDto})
-    @Post()
-    @ApiOkResponse()
+    @Post('create')
     async create(@Body() userDto: CreateUserDto) {
-        return await this.userServcie.createUser(userDto)
+        return this.userService.createUser(userDto);
+    }
+
+    @ApiResponse({status: 200, type: Array<CreateUserDto>})
+    @Get('all')
+    async getAllUsers() {
+        return this.userService.getAllUsers();
     }
 }

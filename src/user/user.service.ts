@@ -23,4 +23,8 @@ export class UserService {
             }
         });
     }
+
+    async getAllUsers() {
+        return this.databaseService.user.findMany()
+    }
 }
