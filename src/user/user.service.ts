@@ -2,6 +2,7 @@ import { Injectable } from "@nestjs/common";
 import { CreateUserDto } from "./dto/create-user.dto";
 import { DatabaseService } from "../database/database.service";
 import { UpdateUserDto } from "./dto/update-user.dto";
+import { AddChildrenUserDto } from "./dto/add-children-user.dto";
 
 @Injectable()
 export class UserService {
@@ -34,6 +35,29 @@ export class UserService {
       },
       where: {
         id: id,
+      },
+    });
+  }
+
+  async addChildren(id: number, addChildrenUserDto: AddChildrenUserDto) {
+    return this.databaseService.user.update({
+      data: {
+        children: {
+          createMany: {
+            data: addChildrenUserDto.children
+          }
+        }
+      },
+      where: {
+        id: id,
+      },
+    });
+  }
+
+  async getChildrenCount(id: number) {
+    return this.databaseService.child.count({
+      where: {
+        parent_id: id
       },
     });
   }
