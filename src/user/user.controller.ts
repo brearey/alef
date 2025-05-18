@@ -1,4 +1,14 @@
-import { Body, Controller, Delete, Get, HttpException, HttpStatus, Param, Patch, Post } from "@nestjs/common";
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  HttpException,
+  HttpStatus,
+  Param,
+  Patch,
+  Post,
+} from "@nestjs/common";
 import { UserService } from "./user.service";
 import { CreateUserDto } from "./dto/create-user.dto";
 import { ApiResponse } from "@nestjs/swagger";
@@ -24,9 +34,18 @@ export class UserController {
 
   @ApiResponse({ status: 200, type: UpdateUserDto })
   @Patch("add-children/:id")
-  async addChildren(@Param() params: FindOneParams, @Body() addChildrenUserDto: AddChildrenUserDto) {
-    const currentChildrenCount = await this.userService.getChildrenCount(+params.id)
-    if (currentChildrenCount + addChildrenUserDto.children.length > 5) throw new HttpException('Количество детей превышено', HttpStatus.BAD_REQUEST);
+  async addChildren(
+    @Param() params: FindOneParams,
+    @Body() addChildrenUserDto: AddChildrenUserDto,
+  ) {
+    const currentChildrenCount = await this.userService.getChildrenCount(
+      +params.id,
+    );
+    if (currentChildrenCount + addChildrenUserDto.children.length > 5)
+      throw new HttpException(
+        "Количество детей превышено",
+        HttpStatus.BAD_REQUEST,
+      );
     return this.userService.addChildren(+params.id, addChildrenUserDto);
   }
 
@@ -42,7 +61,7 @@ export class UserController {
     return this.userService.findOne(+params.id);
   }
 
-  @ApiResponse({status: 200})
+  @ApiResponse({ status: 200 })
   @Delete(":id")
   remove(@Param() params: FindOneParams) {
     return this.userService.remove(+params.id);

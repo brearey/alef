@@ -1,11 +1,4 @@
-import {
-  Controller,
-  Get,
-  Body,
-  Patch,
-  Param,
-  Delete,
-} from "@nestjs/common";
+import { Controller, Get, Body, Patch, Param, Delete } from "@nestjs/common";
 import { ChildService } from "./child.service";
 import { UpdateChildDto } from "./dto/update-child.dto";
 import { FindOneParams } from "../user/dto/validator.dto";
@@ -25,7 +18,10 @@ export class ChildController {
   }
 
   @Patch(":id")
-  update(@Param() params: FindOneParams, @Body() updateChildDto: UpdateChildDto) {
+  update(
+    @Param() params: FindOneParams,
+    @Body() updateChildDto: UpdateChildDto,
+  ) {
     return this.childService.update(+params.id, updateChildDto);
   }
 

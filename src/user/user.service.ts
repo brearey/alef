@@ -44,9 +44,9 @@ export class UserService {
       data: {
         children: {
           createMany: {
-            data: addChildrenUserDto.children
-          }
-        }
+            data: addChildrenUserDto.children,
+          },
+        },
       },
       where: {
         id: id,
@@ -57,7 +57,7 @@ export class UserService {
   async getChildrenCount(id: number) {
     return this.databaseService.child.count({
       where: {
-        parent_id: id
+        parent_id: id,
       },
     });
   }

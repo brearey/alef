@@ -4,7 +4,6 @@ import { UpdateChildDto } from "./dto/update-child.dto";
 
 @Injectable()
 export class ChildService {
-
   constructor(private readonly databaseService: DatabaseService) {}
 
   async findAll() {
@@ -17,8 +16,8 @@ export class ChildService {
         id: id,
       },
       include: {
-        parent: true
-      }
+        parent: true,
+      },
     });
   }
 
