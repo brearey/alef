@@ -6,7 +6,7 @@ import { ValidationPipe } from "@nestjs/common";
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule, { abortOnError: false });
-  const PORT = 3000;
+  const PORT = 3001;
 
   // Инициализация документации API на основе Swagger
   const swaggerConfig = new DocumentBuilder().setTitle("Alef app").build();
